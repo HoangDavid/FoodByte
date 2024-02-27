@@ -1,6 +1,6 @@
 # FoodByte
 # 1) Project description
-We aim to develop a platform that allows users to keep track of the food and ingredients they have available. It will store such information in a database, giving recipe suggestions from what is available, alerting the shop when inventory is low, alerting when food is about to expire, meal planning, etc. The platform will help users easily manage their food and grocery shopping and make cooking more enjoyable and efficient.
+- We aim to develop a platform that allows users to keep track of the food and ingredients they have available. It will store such information in a database, giving recipe suggestions from what is available, alerting the shop when inventory is low, alerting when food is about to expire, meal planning, etc. The platform will help users easily manage their food and grocery shopping and make cooking more enjoyable and efficient.
 
 # 2) Product requirements
 - Goal: Create an easy-to-use web application that allows users to keep track of ingredients they have available and generate a food recipe from available ingredients.
