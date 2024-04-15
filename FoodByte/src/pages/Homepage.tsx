@@ -10,6 +10,8 @@ export const Homepage = () => {
                 <button onClick={() => navigate('/fridge')}>Fridge</button>
                 <button onClick={() => navigate('/recipe')}>Recipe</button>
                 <button onClick={() => navigate('/shopping')}>Shopping</button>
+                <button onClick={() => navigate('/signup')}>Sign Up</button>
+                <button onClick={() => navigate('/login')}>Log In</button>
             </div>
         </div>
     );
