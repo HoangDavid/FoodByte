@@ -17,6 +17,7 @@ export const Navbar = () => {
 
     const handleSelectPage = (page: string) => {
         setSelectedPage(page);
+        navigate(page)
     };
 
     return (
@@ -34,15 +35,15 @@ export const Navbar = () => {
                         </Toolbar>
                     </AppBar>
                     <List style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                        <ListItem button onClick={() => navigate('/fridge')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => handleSelectPage('/fridge')} style={{ flexGrow: 1, flexDirection: 'column'}}>
                             <KitchenIcon style={{ fontSize: '10vh', paddingTop: '7vh'}} />
                             <ListItemText primary="Fridge" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
-                        <ListItem button onClick={() => navigate('/recipe')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => handleSelectPage('/recipe')} style={{ flexGrow: 1, flexDirection: 'column'}}>
                             <MenuBookIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
                             <ListItemText primary="Recipe" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
-                        <ListItem button onClick={() => navigate('/shopping')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => handleSelectPage('/shopping')} style={{ flexGrow: 1, flexDirection: 'column'}}>
                             <ShoppingCartIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
                             <ListItemText primary="Shopping" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
