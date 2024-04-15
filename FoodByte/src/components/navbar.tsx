@@ -13,12 +13,6 @@ import { useState } from 'react';
 
 export const Navbar = () => {
     const navigate = useNavigate();
-    const [selectedPage, setSelectedPage] = useState<string>("");
-
-    const handleSelectPage = (page: string) => {
-        setSelectedPage(page);
-        navigate(page)
-    };
 
     return (
         <div style={{ display: 'flex' }}>
@@ -35,15 +29,15 @@ export const Navbar = () => {
                         </Toolbar>
                     </AppBar>
                     <List style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                        <ListItem button onClick={() => handleSelectPage('/fridge')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => navigate('/fridge')} style={{ flexGrow: 1, flexDirection: 'column', color:  location.pathname === '/fridge' ? 'red' : 'black'}}>
                             <KitchenIcon style={{ fontSize: '10vh', paddingTop: '7vh'}} />
                             <ListItemText primary="Fridge" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
-                        <ListItem button onClick={() => handleSelectPage('/recipe')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => navigate('/recipe')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/recipe' ? 'red' : 'black'}}>
                             <MenuBookIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
                             <ListItemText primary="Recipe" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
-                        <ListItem button onClick={() => handleSelectPage('/shopping')} style={{ flexGrow: 1, flexDirection: 'column'}}>
+                        <ListItem button onClick={() => navigate('/shopping')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/shopping' ? 'red' : 'black'}}>
                             <ShoppingCartIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
                             <ListItemText primary="Shopping" primaryTypographyProps={{ variant: 'h5' }} />
                         </ListItem>
