@@ -7,6 +7,7 @@ import Shopping from './pages/Shopping';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import Navbar from './components/navbar';
+import Topbar from './components/topbar';
 
 function App() {
   return (
@@ -14,9 +15,9 @@ function App() {
       <div className="App">        
         <Routes>
           <Route path="/" element={<Homepage/>}/>
-          <Route path="/fridge" element={[<Navbar/>,<Fridge/>]}/>
-          <Route path="/recipe" element={[<Navbar/>,<Recipe/>]}/>
-          <Route path="/shopping" element={[<Navbar/>,<Shopping/>]}/>
+          <Route path="/fridge" element={[<Navbar/>,<Topbar/>,<Fridge/>]}/>
+          <Route path="/recipe" element={[<Navbar/>,<Topbar/>,<Recipe/>]}/>
+          <Route path="/shopping" element={[<Navbar/>,<Topbar/>,<Shopping/>]}/>
           <Route path ="/signup" element={<SignUp/>}/>
           <Route path = "/login" element ={<LogIn/>}/>
         </Routes>
