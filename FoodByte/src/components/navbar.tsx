@@ -9,7 +9,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // Icon for Sho
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -21,7 +20,7 @@ export const Navbar = () => {
                 anchor="left"
             >
                 <div style={{ width: '20vw', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <AppBar position="static" sx={{alignItems: 'center', padding: '3vh', background: 'grey'}}>
+                    <AppBar position="static" sx={{alignItems: 'center', padding: '3vh', background: 'orange'}}>
                         <Toolbar>
                             <Typography variant="h3" noWrap>
                                 FoodByte

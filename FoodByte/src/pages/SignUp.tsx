@@ -20,7 +20,7 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
 
     // Perform validation on input
-    const validInput = (email: any, password: any) => {
+    const validInput = (email: string, password: string) => {
         // Check if all fields are filled.
         // Check if email are valid.
         // Check if password contains at least 8 characters, an uppercase, a lowercase, and a number.
