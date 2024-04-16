@@ -9,7 +9,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // Icon for Sho
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 
 export const Navbar = () => {
     const navigate = useNavigate();
