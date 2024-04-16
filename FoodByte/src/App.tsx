@@ -6,12 +6,14 @@ import Recipe from './pages/Recipe';
 import Shopping from './pages/Shopping';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
-
+import Navbar from './components/navbar';
 
 function App() {
   return (
     <>
       <div className="App">
+        <Navbar/>
+        
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/fridge" element={<Fridge/>}/>
