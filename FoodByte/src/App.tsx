@@ -11,14 +11,12 @@ import Navbar from './components/navbar';
 function App() {
   return (
     <>
-      <div className="App">
-        <Navbar/>
-        
+      <div className="App">        
         <Routes>
           <Route path="/" element={<Homepage/>}/>
-          <Route path="/fridge" element={<Fridge/>}/>
-          <Route path="/recipe" element={<Recipe/>}/>
-          <Route path="/shopping" element={<Shopping/>}/>
+          <Route path="/fridge" element={[<Navbar/>,<Fridge/>]}/>
+          <Route path="/recipe" element={[<Navbar/>,<Recipe/>]}/>
+          <Route path="/shopping" element={[<Navbar/>,<Shopping/>]}/>
           <Route path ="/signup" element={<SignUp/>}/>
           <Route path = "/login" element ={<LogIn/>}/>
         </Routes>
