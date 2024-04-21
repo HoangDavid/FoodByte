@@ -35,3 +35,11 @@
       - Call API to retrieve recipe that matches available ingredients
     - Ticket 2: Suggest a recipe that the user might like
       - Store previously chosen recipe data and analyze
+
+# 4) Instructions
+- npm install
+- npm install antd
+- npm install @mui/material @emotion/react @emotion/styled
+
+# 5) Video
+- Link: https://drive.google.com/file/d/1olyOSXc6JtO2MGwCCcmoe5pTI-u3bqQy/view?usp=share_link
