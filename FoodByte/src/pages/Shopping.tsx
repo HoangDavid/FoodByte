@@ -1,11 +1,9 @@
-
+import ShoppingTable from "../components/shoppingTable";
 
 export const Shopping = () => {
 
     return (
-        <div style={{fontSize: '30px', color: 'orange'}}>
-            Welcome to your shopping list!
-        </div>
+        <ShoppingTable/>
     );
 };
 export default Shopping;

@@ -1,11 +1,9 @@
-
+import FridgeTable from "../components/fridgeTable";
 
 export const Fridge = () => {
 
     return (
-        <div style={{fontSize: '30px', color: 'orange'}}>
-            Welcome to your fridge!
-        </div>
+        <FridgeTable/>
     );
 };
 export default Fridge;
