@@ -13,6 +13,10 @@ export const Recipe = () => {
         if (data) setRecipes(data);
     };
 
+    const handleCardClick = (url: string) => {
+      window.open(url, '_blank');
+    };
+
     return (
         <div style={{ maxWidth: '90%', marginLeft: '25%'}}>
             <TextField
@@ -30,10 +34,10 @@ export const Recipe = () => {
             >
                 Search
             </Button>
-            <Grid container spacing={2} style={{ marginTop: 20 }}>
+            <Grid container spacing={2} style={{ marginTop: 20}}>
                 {recipes.map((item, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Card>
+                        <Card onClick={() => handleCardClick(item.url)} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 height="140"
@@ -44,8 +48,8 @@ export const Recipe = () => {
                                 <Typography gutterBottom variant="h5" component="div">
                                     {item.label}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {item.instructions} {/* Assuming there is a description field */}
+                                <Typography variant="body2" color="text.secondary" style={{ whiteSpace: 'pre-line' }}>
+                                    - {item.ingredients.map(ingredient => ingredient.text).join('\n - ')}
                                 </Typography>
                             </CardContent>
                         </Card>
