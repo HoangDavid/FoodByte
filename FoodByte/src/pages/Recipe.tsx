@@ -1,30 +1,59 @@
-import {useState}  from 'react';
+import { useState } from 'react';
 import getRecipes from "../services/recipeAPI";
+import { TextField, Button, Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { RecipeType } from '../types/recipe';
 
 export const Recipe = () => {
     const [query, setQuery] = useState('');
-    const [recipes, setRecipes] = useState([]);
-  
+    const [recipes, setRecipes] = useState<RecipeType[]>([]);
+
     const handleSearch = async () => {
-      const data = await getRecipes(query);
-      if (data) setRecipes(data.hits); // Assuming the API returns an object with a 'hits' array
+        const data = await getRecipes(query);
+        if (data) setRecipes(data);
     };
 
     return (
-      <div>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for recipes"
-        />
-        <button onClick={handleSearch}>Search</button>
-        <ul>
-          {recipes.map((item, index) => (
-            <li key={index}>{item.recipe.label}</li> // Display recipe titles
-          ))}
-        </ul>
-      </div>
+        <div style={{ maxWidth: '90%', marginLeft: '25%'}}>
+            <TextField
+                label="Search for recipes"
+                variant="outlined"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                fullWidth
+                margin="normal"
+            />
+            <Button
+                variant="contained"
+                startIcon={<SearchIcon />}
+                onClick={handleSearch}
+            >
+                Search
+            </Button>
+            <Grid container spacing={2} style={{ marginTop: 20 }}>
+                {recipes.map((item, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                        <Card>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image={item.image}
+                                alt={item.label}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {item.label}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {item.instructions} {/* Assuming there is a description field */}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+        </div>
     );
 };
+
 export default Recipe;
