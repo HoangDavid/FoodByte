@@ -4,19 +4,22 @@ import Homepage from './pages/Homepage';
 import Fridge from './pages/Fridge';
 import Recipe from './pages/Recipe';
 import Shopping from './pages/Shopping';
+import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
 import Navbar from './components/navbar';
+import Topbar from './components/topbar';
 
 function App() {
   return (
     <>
-      <div className="App">
-        <Navbar/>
-        
+      <div className="App">        
         <Routes>
           <Route path="/" element={<Homepage/>}/>
-          <Route path="/fridge" element={<Fridge/>}/>
-          <Route path="/recipe" element={<Recipe/>}/>
-          <Route path="/shopping" element={<Shopping/>}/>
+          <Route path="/fridge" element={[<Navbar/>,<Topbar/>,<Fridge/>]}/>
+          <Route path="/recipe" element={[<Navbar/>,<Topbar/>,<Recipe/>]}/>
+          <Route path="/shopping" element={[<Navbar/>,<Topbar/>,<Shopping/>]}/>
+          <Route path ="/signup" element={<SignUp/>}/>
+          <Route path = "/login" element ={<LogIn/>}/>
         </Routes>
       </div>
     </>
@@ -24,3 +27,5 @@ function App() {
 }
 
 export default App
+
+// https://drive.google.com/file/d/1olyOSXc6JtO2MGwCCcmoe5pTI-u3bqQy/view?usp=share_link
