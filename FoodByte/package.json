@@ -10,15 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
+    "antd": "^5.16.5",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
-    "@ant-design/icons": "^5.3.6",
-    "@mui/icons-material": "^5.15.15",
-    "antd": "^5.16.2",
     "firebase": "^10.9.0",
     "mui": "^0.0.1",
     "react": "^18.2.0",

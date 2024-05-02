@@ -18,7 +18,7 @@ export const Recipe = () => {
     };
 
     return (
-        <div style={{ maxWidth: '90%', marginLeft: '25%'}}>
+        <div style={{ maxWidth: '70%', marginLeft: '25%', marginTop: '10%'}}>
             <TextField
                 label="Search for recipes"
                 variant="outlined"
