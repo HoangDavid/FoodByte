@@ -2,7 +2,7 @@ import { useState } from 'react';
 import getRecipes from "../services/recipeAPI";
 import { Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
 import { RecipeType } from '../types/recipe';
-import { Col, Row, Space, Input, } from 'antd';
+import { Space, Input, } from 'antd';
 const { Search } = Input;
 
 export const Recipe = () => {

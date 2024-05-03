@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { signOut } from "firebase/auth";
@@ -45,7 +44,7 @@ export const Topbar = () => {
                         background: '#65b3a2',
                         justifyContent: 'space-between',
                         display: 'flex',
-                        flexDirection: 'row'
+                        flexDirection: 'row',
                     }
                 }}
             >

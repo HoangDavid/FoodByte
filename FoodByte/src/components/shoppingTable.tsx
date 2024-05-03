@@ -5,18 +5,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TextField } from '@mui/material';
+import { TextField} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete'
 import {Box, Button} from '@mui/material'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function createData(
-    no: number,
-    name: string,
-    quantity: number,
-    availableAt: string
-  ) {
-    return { no, name, quantity, availableAt };
-  }
+import { getItems } from '../services/firebase';
+import { addItem } from '../services/firebase';
+import { deleteItem } from '../services/firebase';
+import { Item } from '../types/Item';
 
 function ShoppingTable() {
     
@@ -25,9 +22,10 @@ function ShoppingTable() {
     const closeState = () => setisAdd(false)
 
     const [values, setValues] = useState({
-        Name: '',
-        Quantity: 0,
-        AvailableAt: ''
+        name: '',
+        quantity: 0,
+        dateAdded: '',
+        expireIn: 0
     })
 
     const handleValueChange = (e) => {
@@ -38,20 +36,31 @@ function ShoppingTable() {
         })
     }
 
-    const onSave = () => {
-        const newRow = createData(rows.length + 1, values.Name, values.Quantity, values.AvailableAt);
-        setRows([...rows, newRow]);
-        setValues({ Name: '', Quantity: 0, AvailableAt: '' }); // Clear input fields after saving
+    const onSave = async() => {
+        await addItem(values, 'shopping')
+        window.location.reload()
+    }
+
+    const onDelete = async(id: string) => {
+        await deleteItem(id, 'shopping')
+        window.location.reload()
     }
 
     // limit 14 rows
-    const [rows, setRows] = useState([
-        createData(1, 'Apples', 2, 'Target'),
-        createData(2, 'Cooking Oil', 1, 'Amazon'),
-        createData(3, 'Carrots', 2, 'Whole Food'),
-        createData(4, 'Soy Sauce', 1, 'H-Mart'),
-        createData(5, 'Rice', 5, 'H-Mart')
-    ]);
+    const [rows, setRows] = useState<Item[]>([]);
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const items = await getItems('shopping') as Item[]; // Fetch items from Firestore
+                setRows(items); // Update rows state with fetched items
+            } catch (error) {
+                console.error('Error fetching items:', error);
+            }
+        };
+
+        fetchItems(); // Call fetchItems when the component mounts
+    }, []);
 
     const AddField = {
         width: '100px',
@@ -74,16 +83,15 @@ function ShoppingTable() {
                         <TableCell align='center'>No. </TableCell>
                         <TableCell align='center'>Name</TableCell>
                         <TableCell align='center'>Quantity</TableCell>
-                        <TableCell align='center'>Available at</TableCell>
                     </TableRow>
                  </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {rows.map((row, index) => (
                     <TableRow key={row.name}>
-                        <TableCell align='center'>{row.no}</TableCell>
+                        <TableCell align='center'>{index + 1}</TableCell>
                         <TableCell align='center'>{row.name}</TableCell>
                         <TableCell align='center'>{row.quantity}</TableCell>
-                        <TableCell align='center'>{row.availableAt}</TableCell>
+                        <TableCell align='center'> <DeleteIcon sx={{cursor: 'pointer'}} onClick={async() => onDelete(row.id)}/></TableCell>
                     </TableRow>
                     ))}
                     { isAdd == true ?
@@ -95,8 +103,8 @@ function ShoppingTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='Name'
-                                value={values.Name}
+                                name='name'
+                                value={values.name}
                                 onChange={handleValueChange}>
                             </TextField>              
                         </TableCell>
@@ -106,21 +114,10 @@ function ShoppingTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='Quantity'
-                                value={values.Quantity}
+                                name='quantity'
+                                value={values.quantity}
                                 onChange={handleValueChange}>
                             </TextField>
-                        </TableCell>
-
-                        <TableCell align='center'>
-                            <TextField 
-                                id="standard-basic" 
-                                variant="standard" 
-                                sx={AddField} 
-                                name='AvailableAt'
-                                value={values.AvailableAt}
-                                onChange={handleValueChange}>
-                            </TextField>                        
                         </TableCell>
                     </TableRow>
                     : <></>
