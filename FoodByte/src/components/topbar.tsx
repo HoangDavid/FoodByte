@@ -10,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {auth} from "../services/firebase"
 import { useState } from 'react';
+import logo from '../../public/logo.png'
 
 export const Topbar = () => {
     const navigate = useNavigate();
@@ -41,18 +42,19 @@ export const Topbar = () => {
                 anchor="top"
                 sx={{
                     '& .MuiDrawer-paper': {
-                        background: 'orange',
+                        background: '#65b3a2',
                         justifyContent: 'space-between',
                         display: 'flex',
                         flexDirection: 'row'
                     }
                 }}
             >
-                    <List sx={{alignItems: 'center', padding: '3vh', background: 'orange', color: 'white'}}>
+                    <List sx={{alignItems: 'center', padding: '0px', background: '#65b3a2', color: 'white'}}>
                         <Toolbar>
-                            <Typography variant="h3" noWrap>
-                                FoodByte
-                            </Typography>
+                        <img 
+                            src={logo}
+                            alt="Logo"
+                            style={{width:'30%', height: '30%'}}/>
                         </Toolbar>
                     </List>
 

@@ -19,7 +19,7 @@ export const Navbar = () => {
                 variant="permanent"
                 anchor="left"
             >
-                <div style={{ width: '20vw', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ width: '10vw', height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <AppBar position="static" sx={{alignItems: 'center', padding: '3vh', background: 'orange'}}>
                         <Toolbar>
                             <Typography variant="h3" noWrap>
@@ -28,17 +28,17 @@ export const Navbar = () => {
                         </Toolbar>
                     </AppBar>
                     <List style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                        <ListItem button onClick={() => navigate('/fridge')} style={{ flexGrow: 1, flexDirection: 'column', color:  location.pathname === '/fridge' ? 'red' : 'black'}}>
-                            <KitchenIcon style={{ fontSize: '10vh', paddingTop: '7vh'}} />
-                            <ListItemText primary="Fridge" primaryTypographyProps={{ variant: 'h5' }} />
+                        <ListItem button onClick={() => navigate('/fridge')} style={{ flexGrow: 1, flexDirection: 'column', color:  location.pathname === '/fridge' ? '#65b3a2' : 'black'}}>
+                            <KitchenIcon style={{ fontSize: '7vh', paddingTop: '7vh', paddingBottom: '1vh'}} />
+                            <ListItemText primary="Fridge" />
                         </ListItem>
-                        <ListItem button onClick={() => navigate('/recipe')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/recipe' ? 'red' : 'black'}}>
-                            <MenuBookIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
-                            <ListItemText primary="Recipe" primaryTypographyProps={{ variant: 'h5' }} />
+                        <ListItem button onClick={() => navigate('/recipe')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/recipe' ? '#65b3a2' : 'black'}}>
+                            <MenuBookIcon style={{ fontSize: '7vh', paddingTop: '7vh', paddingBottom: '1vh' }} />
+                            <ListItemText primary="Recipe"  />
                         </ListItem>
-                        <ListItem button onClick={() => navigate('/shopping')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/shopping' ? 'red' : 'black'}}>
-                            <ShoppingCartIcon style={{ fontSize: '10vh', paddingTop: '7vh' }} />
-                            <ListItemText primary="Shopping" primaryTypographyProps={{ variant: 'h5' }} />
+                        <ListItem button onClick={() => navigate('/shopping')} style={{ flexGrow: 1, flexDirection: 'column', color: location.pathname === '/shopping' ? '#65b3a2' : 'black'}}>
+                            <ShoppingCartIcon style={{ fontSize: '7vh', paddingTop: '7vh', paddingBottom: '1vh'}} />
+                            <ListItemText primary="Shopping"  />
                         </ListItem>
                     </List>
                 </div>

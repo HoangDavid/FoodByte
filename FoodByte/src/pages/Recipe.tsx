@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import getRecipes from "../services/recipeAPI";
-import { TextField, Button, Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
 import { RecipeType } from '../types/recipe';
+import { Col, Row, Space, Input, } from 'antd';
+const { Search } = Input;
 
 export const Recipe = () => {
     const [query, setQuery] = useState('');
@@ -18,22 +19,18 @@ export const Recipe = () => {
     };
 
     return (
-        <div style={{ maxWidth: '90%', marginLeft: '25%'}}>
-            <TextField
-                label="Search for recipes"
-                variant="outlined"
+        <div className='container' style={{ minHeight: '100vh'}}>
+            <Space direction="vertical" size="large">
+            <h1 style={{ fontSize: '40px', color: "#1b4c47"}}>Recipe Finder!</h1>
+            <Search
+                placeholder="Search for recipes"
+                size="large"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                fullWidth
-                margin="normal"
+                onSearch={handleSearch}
+                style={{width: '50vh'}}
             />
-            <Button
-                variant="contained"
-                startIcon={<SearchIcon />}
-                onClick={handleSearch}
-            >
-                Search
-            </Button>
+        </Space>
             <Grid container spacing={2} style={{ marginTop: 20}}>
                 {recipes.map((item, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>

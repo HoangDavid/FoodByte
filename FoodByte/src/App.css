@@ -33,3 +33,25 @@
   
 } 
 
+.custom-button-homepage {
+  width: 200px;
+  height: auto;
+  cursor: pointer; /* Pointer cursor */
+  margin-right: 20px; /* Space between buttons */
+  text-align: center;
+  font-size: large;
+  background-color: #1b4c47;
+  color: #fff3e0;
+  font-weight: 500;
+}
+
+.custom-button-homepage:hover {
+  background-color: #fff3e0; /* Change background color on hover */
+  color: #1b4c47; /* Change text color on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.container {
+  padding-left: 100px;
+  padding-top: 150px;
+}
