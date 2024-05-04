@@ -9,6 +9,7 @@ import { TextField} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete'
 import {Box, Button} from '@mui/material'
 import { useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { getItems } from '../services/firebase';
 import { addItem } from '../services/firebase';
@@ -20,6 +21,7 @@ function FridgeTable() {
     const [isAdd, setisAdd] = useState(false)
     const addState = () => setisAdd(true)
     const closeState = () => setisAdd(false)
+    const [userId, setUserId] = useState<string | null>(null);
 
     const [values, setValues] = useState({
         name: '',
@@ -37,8 +39,12 @@ function FridgeTable() {
     }
 
     const onSave = async() => {
-        await addItem(values, 'fridge')
-        window.location.reload()
+        if (userId) {
+            await addItem(values, 'fridge', userId);
+            window.location.reload();
+        } else {
+            console.error('User ID is undefined');
+        }
     }
 
     const onDelete = async(id: string) => {
@@ -50,17 +56,36 @@ function FridgeTable() {
     const [rows, setRows] = useState<Item[]>([]);
 
     useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            if (user) {
+                setUserId(user.uid); // Set user ID from Firebase Authentication
+            } else {
+                setUserId(null); // No user is signed in
+            }
+        });
+
+        return () => unsubscribe(); // Cleanup subscription
+    }, []);
+
+    useEffect(() => {
         const fetchItems = async () => {
             try {
-                const items = await getItems('fridge') as Item[]; // Fetch items from Firestore
-                setRows(items); // Update rows state with fetched items
+                if (userId) { // Ensure userId is not null
+                    const items = await getItems('fridge', userId) as Item[];
+                    setRows(items);
+                } else {
+                    console.error('User ID is null');
+                }
             } catch (error) {
                 console.error('Error fetching items:', error);
             }
         };
 
-        fetchItems(); // Call fetchItems when the component mounts
-    }, []);
+        if (userId) { // Only call fetchItems if userId is not null
+            fetchItems();
+        }
+    }, [userId]);
 
     const AddField = {
         width: '100px',
