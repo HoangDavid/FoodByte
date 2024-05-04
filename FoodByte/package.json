@@ -16,7 +16,7 @@
     "@esbuild/darwin-arm64": "^0.20.2",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
-    "antd": "^5.16.2",
+    "antd": "^5.16.5",
     "axios": "^1.6.8",
     "brew": "^0.0.8",
     "cors": "^2.8.5",
