@@ -5,19 +5,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TextField } from '@mui/material';
+import { TextField} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete'
 import {Box, Button} from '@mui/material'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function createData(
-    no: number,
-    name: string,
-    quantity: number,
-    dateAdded: string,
-    expiresIn: number
-  ) {
-    return { no, name, quantity, dateAdded, expiresIn };
-  }
+import { getItems } from '../services/firebase';
+import { addItem } from '../services/firebase';
+import { deleteItem } from '../services/firebase';
+import { Item } from '../types/Item';
 
 function FridgeTable() {
     
@@ -26,10 +22,10 @@ function FridgeTable() {
     const closeState = () => setisAdd(false)
 
     const [values, setValues] = useState({
-        Name: '',
-        Quantity: 0,
-        DateAdded: '',
-        ExpiresIn: 0
+        name: '',
+        quantity: 0,
+        dateAdded: '',
+        expireIn: 0
     })
 
     const handleValueChange = (e) => {
@@ -40,20 +36,31 @@ function FridgeTable() {
         })
     }
 
-    const onSave = () => {
-        const newRow = createData(rows.length + 1, values.Name, values.Quantity, values.DateAdded, values.ExpiresIn);
-        setRows([...rows, newRow]);
-        setValues({ Name: '', Quantity: 0, DateAdded: '', ExpiresIn: 0 }); // Clear input fields after saving
+    const onSave = async() => {
+        await addItem(values, 'fridge')
+        window.location.reload()
+    }
+
+    const onDelete = async(id: string) => {
+        await deleteItem(id, 'fridge')
+        window.location.reload()
     }
 
     // limit 14 rows
-    const [rows, setRows] = useState([
-        createData(1, 'Apples', 2, '04/21/2024', 14),
-        createData(2, 'Cooking Oil', 1, '04/21/2024', 100),
-        createData(3, 'Carrots', 2, '04/21/2024', 5),
-        createData(4, 'Soy Sauce', 1, '04/21/2024', 100),
-        createData(5, 'Rice', 5, '04/21/2024', 100)
-    ]);
+    const [rows, setRows] = useState<Item[]>([]);
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const items = await getItems('fridge') as Item[]; // Fetch items from Firestore
+                setRows(items); // Update rows state with fetched items
+            } catch (error) {
+                console.error('Error fetching items:', error);
+            }
+        };
+
+        fetchItems(); // Call fetchItems when the component mounts
+    }, []);
 
     const AddField = {
         width: '100px',
@@ -81,13 +88,14 @@ function FridgeTable() {
                     </TableRow>
                  </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {rows.map((row, index) => (
                     <TableRow key={row.name}>
-                        <TableCell align='center'>{row.no}</TableCell>
+                        <TableCell align='center'>{index + 1}</TableCell>
                         <TableCell align='center'>{row.name}</TableCell>
                         <TableCell align='center'>{row.quantity}</TableCell>
                         <TableCell align='center'>{row.dateAdded}</TableCell>
-                        <TableCell align='center'>{row.expiresIn}</TableCell>
+                        <TableCell align='center'>{row.expireIn}</TableCell>
+                        <TableCell align='center'> <DeleteIcon sx={{cursor: 'pointer'}} onClick={async() => onDelete(row.id)}/></TableCell>
                     </TableRow>
                     ))}
                     { isAdd == true ?
@@ -99,8 +107,8 @@ function FridgeTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='Name'
-                                value={values.Name}
+                                name='name'
+                                value={values.name}
                                 onChange={handleValueChange}>
                             </TextField>              
                         </TableCell>
@@ -110,8 +118,8 @@ function FridgeTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='Quantity'
-                                value={values.Quantity}
+                                name='quantity'
+                                value={values.quantity}
                                 onChange={handleValueChange}>
                             </TextField>
                         </TableCell>
@@ -121,8 +129,8 @@ function FridgeTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='DateAdded'
-                                value={values.DateAdded}
+                                name='dateAdded'
+                                value={values.dateAdded}
                                 onChange={handleValueChange}>
                             </TextField>                        
                         </TableCell>
@@ -132,8 +140,8 @@ function FridgeTable() {
                                 id="standard-basic" 
                                 variant="standard" 
                                 sx={AddField} 
-                                name='ExpiresIn'
-                                value={values.ExpiresIn}
+                                name='expireIn'
+                                value={values.expireIn}
                                 onChange={handleValueChange}>
                             </TextField>                        
                         </TableCell>

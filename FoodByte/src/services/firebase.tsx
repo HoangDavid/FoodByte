@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, getDocs, collection, addDoc, deleteDo, doc, deleteDoc} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { Item } from "../types/Item";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,3 +24,27 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export { auth };
+
+export const  getItems = async(item_type: string) => {
+  const ref = await getDocs(collection(db, item_type))
+  const data = ref.docs.map(doc => ({id: doc.id, ... doc.data()}))
+
+  return data
+
+}
+
+export const addItem = async (item: any, item_type: string) => {
+  const ref =  collection(db, item_type)
+
+  await addDoc(ref, {
+    name: item.name,
+    quantity: item.quantity, 
+    expireIn: item.expireIn,
+    dateAdded: item.dateAdded
+  })
+}
+
+export const deleteItem = async (item_id: string, item_type: string) => {
+  const ref = doc(db, item_type, item_id)
+  await deleteDoc(ref)
+}

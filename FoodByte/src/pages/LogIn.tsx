@@ -73,7 +73,7 @@ const LogIn = () => {
                 alt="Logo"
                 className="logo" />
         
-        </div>
+            </div>
             <div
                 // Styling the Sign up form
                 className="CenteredCard"
