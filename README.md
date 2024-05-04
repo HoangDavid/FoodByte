@@ -8,15 +8,17 @@
   - Non-functional requirements 1: Security
     - Functional requirements:
       - Allow users to make their accounts to provide them with personalization
-      - Use 3rd party Authentication such as FB, Google Account, etc.
+      - Use 3rd party Authentication (Google Account)
   - Non-functional requirements 2: Storing
     - Functional requirements:
-      - Have an interactive virtual fridge with food images indicating its availability. 
+      - Have an interactive virtual fridge with food indicating its availability. 
       - Allow users to dynamically fill in their current available ingredients and store them in the database
   - Non-functional requirements 3: Suggesting
     - Functional requirements:
-      - Retrieve available ingredients from the database 
-      - Use Food API to suggest a recipe from available ingredients.
+      - Use Food API to find recipes based on user's preferences
+  - Non-functional requirements 4: Grocery Store Search
+    - Functional requirements:
+      - Use Google Map API to find open grocery stores near an area
 
 
 # 3) Project management
@@ -28,18 +30,29 @@
       - Create an Entity Relationship Diagram with the appropriate attributes corresponding to ingredients
     - Ticket 2: Implement a DB 
       - We think we will make use of Firebase
-- User story 2: As a user, I want to know what recipes I can make from my available ingredients
+- User story 2: As a user, I want to know what recipes I can make
   - Task: Implement a food API
-    - Ticket 1: Retrieve recipes that match with available ingredients
-      - Retrieve ingredients from the database
-      - Call API to retrieve recipe that matches available ingredients
-    - Ticket 2: Suggest a recipe that the user might like
-      - Store previously chosen recipe data and analyze
+    - Ticket 1: Retrieve recipes
+      - Call API to retrieve recipe that matches user preferences
+    - Ticket 2: Get detailed instructions
+      - Lead to credible webpages that provides instructions to make chosen recipe
+- User story 3: As a user, I want to find grocery 
+  - Task: Implement Google Map 
+    - Ticket 1: Retrieve grocery stores near an area (within 2 kilometers)
+      - Call API to retrieve nearby stores
+    - Ticket 2: Indicate whether they are still open
+      - Check their opening hours and inform the user if the location is still open for shopping
 
 # 4) Instructions
 - npm install
 - npm install antd
 - npm install @mui/material @emotion/react @emotion/styled
+- npm install node
+- Terminal 1 (For Google Map API)
+  - cd src/services
+  - node mapAPI-server.js
+- Terminal 2 (For running react program)
+  - npm run dev 
 
-# 5) Video
-- Link: https://drive.google.com/file/d/1olyOSXc6JtO2MGwCCcmoe5pTI-u3bqQy/view?usp=share_link
+# 5) Final Video Demonstration
+- Link: https://drive.google.com/file/d/1bOQCpYQsK41-MaOwcIrJz9UD6BkTNK0D/view?usp=share_link
