@@ -5,6 +5,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import { auth } from "../services/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import logo from '../../public/logo.png'
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 interface FirebaseError {
     code: string;
@@ -16,6 +17,7 @@ const LogIn = () => {
     const [form] = Form.useForm();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const googleProvider = new GoogleAuthProvider();
 
     // Perform validation on input
     const validInput = (email: string, password: string) => {
@@ -53,6 +55,20 @@ const LogIn = () => {
             console.log("Received invalid inputs.")
         }
     }
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            console.log("Google Sign In successfully: ", user);
+            message.success("Logged in successfully.");
+            navigate('/fridge');
+        } catch (error: any) {
+            const firebaseError = error as FirebaseError;
+            console.log("Error during Google Sign In: ", firebaseError);
+            message.error(firebaseError.message || "Failed to log in with Google.");
+        }
+    };
     
     return (
         <div
@@ -133,6 +149,24 @@ const LogIn = () => {
                     LogIn
                     </Button>
                 </Form.Item>
+
+                <Button
+                    icon={<UserAddOutlined />}
+                    size="large"
+                    style={{
+                        backgroundColor: "white",
+                        border: "none",
+                        color: "#777",
+                        borderColor:"#777",
+                        fontWeight: 600,
+                        fontSize: "15px",
+                        width: "250px",
+                        marginTop: "10px"
+                    }}
+                    onClick={handleGoogleSignIn}
+                >
+                    Sign in with Google
+                </Button>
 
                 <Form.Item>
                     <Button // Button to get back to home

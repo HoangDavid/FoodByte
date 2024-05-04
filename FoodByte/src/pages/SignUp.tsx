@@ -4,7 +4,8 @@ import { Input, Button, Form, message } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { auth } from "../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import logo from '../../public/logo.png'
+import logo from '../../public/logo.png';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 
 
@@ -18,6 +19,7 @@ const SignUp = () => {
     const [form] = Form.useForm();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const googleProvider = new GoogleAuthProvider();
 
     // Perform validation on input
     const validInput = (email: string, password: string) => {
@@ -55,6 +57,20 @@ const SignUp = () => {
             console.log("Received invalid inputs.")
         }
     }
+
+    const handleGoogleSignUp = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            console.log("Google Sign Up successfully: ", user);
+            message.success("Signed up and logged in successfully.");
+            navigate('/login'); // Or direct to a different page as needed
+        } catch (error: any) {
+            const firebaseError = error as FirebaseError;
+            console.log("Error during Google Sign Up: ", firebaseError);
+            message.error(firebaseError.message || "Failed to sign up with Google.");
+        }
+    };
     
     return (
         <div
@@ -134,6 +150,24 @@ const SignUp = () => {
                     Sign up
                     </Button>
                 </Form.Item>
+
+                <Button
+                    icon={<UserAddOutlined />}
+                    size="large"
+                    htmlType="button"
+                    style={{
+                        backgroundColor: "white",
+                        border: "none",
+                        color: "#777",
+                        fontWeight: 600,
+                        fontSize: "15px",
+                        width: "250px",
+                        marginTop: "10px"
+                    }}
+                    onClick={handleGoogleSignUp}
+                >
+                    Sign up with Google
+                </Button>
 
                 <Form.Item>
                     <Button // Button to get back to home
